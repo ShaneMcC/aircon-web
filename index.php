@@ -59,6 +59,8 @@
 
 		</style>
 		<meta name="viewport" content="user-scalable=no">
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" sizes="164x297" href="icon.png">
 	</head>
 	<body>
 		<div class="container">
