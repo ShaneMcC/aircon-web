@@ -9,10 +9,13 @@
 	                 'timer' => 3,
 	                 'speed' => 4,
 	                 'tempUp' => 5,
-	                 'tempDown' => 7);
+	                 'tempDown' => 7,
+	                 'setTemp' => 8,
+	                );
 
 	$act = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'fail';
 	$action = isset($actions[$act]) ? $actions[$act] : $actions['fail'];
+	$val = isset($_REQUEST['value']) ? $_REQUEST['value'] : 'false';
 
 	switch ($action) {
 		case $actions['power']:
@@ -32,6 +35,9 @@
 			break;
 		case $actions['tempDown']:
 			$aircon->tempDown();
+			break;
+		case $actions['setTemp']:
+			$aircon->setTemp($val);
 			break;
 		default:
 			echo json_encode(array('error' => 'Unknown Action'));

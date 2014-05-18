@@ -6,9 +6,9 @@
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 		<style>
-			body {
+<!--			body {
 				padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-			}
+			} -->
 
 			.remote { text-align: center; }
 
@@ -26,8 +26,8 @@
 			}
 
 			.log {
-				font-size: 50px;
-				line-height: 55px;
+				font-size: 20px;
+				line-height: 25px;
 				padding: 20px;
 
 				border: 3px solid #BCE8F1;
@@ -58,6 +58,7 @@
 			}
 
 		</style>
+		<meta name="viewport" content="user-scalable=no">
 	</head>
 	<body>
 		<div class="container">
@@ -96,10 +97,14 @@
 					<div class="span6">
 						<div id="log"></div>
 					</div>
-					<div class="span6">
+					<div class="span3">
 						<button class="btn btn-large btn-info" type="button" data-action="speed">Fan Speed</button>
 					</div>
+					<div class="span3">
+                                                <button class="btn btn-large btn-info" type="button" data-action="setTemp">Set Temp</button>
+                                        </div>
 				</div>
+
 			</div>
 		</div>
 
@@ -141,11 +146,15 @@
 				$('.btn').click(function() {
 					var action = $(this).data('action');
 					addLog('Button Clicked: ' + action);
+					var value = false;
+					if (action == 'setTemp') {
+						var value = prompt("What temperature?", '');
+					}
 
 					$.ajax({
 						type: 'GET',
 						url: 'act.php',
-						data: { action: action }
+						data: { action: action, value: value }
 					}).done(function(msg) {
 						var msg = $.parseJSON(msg);
 						if (msg.error != undefined) {

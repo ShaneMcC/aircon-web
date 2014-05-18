@@ -45,6 +45,19 @@ class aircon extends lirc {
 	public function speed() { $this->sendKey('KEY_NEXT'); return $this; }
 	public function mode() { $this->sendKey('KEY_CYCLEWINDOWS'); return $this; }
 	public function sleep($time) { sleep($time); return $this; }
+
+	public function setTemp($temp) {
+		$temp = max(18, min(32, $temp));
+
+		// Down to 18
+		$keys = str_repeat(' KEY_CHANNELDOWN', 16);
+		// UP to requested temp.
+		$keys .= str_repeat(' KEY_CHANNELUP', ($temp - 18));
+
+		// Set Temp
+		$this->sendKey(trim($keys));
+		return $this;
+	}
 }
 
 ?>

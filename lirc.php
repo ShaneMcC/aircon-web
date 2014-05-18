@@ -8,7 +8,9 @@ class lirc {
 	}
 
 	protected function sendKey($key, $times = 'SEND_ONCE') {
-		$cmd = '/usr/bin/irsend ' . escapeshellarg($times) . ' ' . escapeshellarg($this->remote) . ' ' . escapeshellarg($key);
+		$k = array();
+		foreach (explode(' ', $key) as $bit) { $k[] = escapeshellarg($bit); }
+		$cmd = '/usr/bin/irsend ' . escapeshellarg($times) . ' ' . escapeshellarg($this->remote) . ' ' . implode(' ', $k);
 		exec($cmd);
 	}
 }
